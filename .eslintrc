@@ -1,14 +1,34 @@
 {
+   "settings": {
+      "import/resolver": {
+         "node": {
+            "paths": [
+               "."
+            ]
+         }
+      },
+      "import/extensions": {
+         "extensions": [
+            ".js",
+            ".jsx",
+            ".ts",
+            ".tsx"
+         ],
+      }
+   },
    "env": {
       "browser": true,
       "commonjs": true,
+      "node": true,
       "es2021": true
    },
    "extends": [
-      "airbnb-base"
+      "airbnb-base",
+      // "plugin:import/errors"
    ],
    "plugins": [
-      "align-assignments"
+      "align-assignments",
+      "import"
    ],
    "parserOptions": {
       "ecmaVersion": 2020

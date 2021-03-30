@@ -1,0 +1,24 @@
+<picture class="page-header__logo-picture">
+
+         <source media="(min-width: 1004px)" srcset="images/logo-desktop.webp 2x, images/logo-desktop.webp 1x" type="image/webp">
+         <source media="(min-width: 1004px)" srcset="images/logo-desktop.png 2x, images/logo-desktop.png 1x">
+         
+         <source media="(min-width: 684px)" srcset="images/logo-tablet.webp 2x, images/logo-tablet.webp 1x" type="image/webp">
+         <source media="(min-width: 684px)" srcset="images/logo-tablet.png 2x, images/logo-tablet.png 1x">
+
+         <source srcset="images/logo-mobile.webp" type="image/webp">
+
+         <img class="page-header__logo-image" srcset="images/logo-mobile.png" alt="Логотип Барбершопа «Бородинский»">
+         
+</picture>
+
+{% picture 
+   class = 'page-header__logo-picture',
+   dir = 'images/',
+   media = {desktop:'logo-desktop', tablet: 'logo-tablet', img: 'logo-mobile'},
+   imgClass = 'page-header__logo-image'
+   alt = 'Логотип Барбершопа «Бородинский»',
+   formats = ['.webp', '.png'],
+   w = '100px',
+   h = '50px'
+ %}

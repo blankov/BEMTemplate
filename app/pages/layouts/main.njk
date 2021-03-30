@@ -1,15 +1,11 @@
-{% if not(title) %}
-	{% set title = "HTMLTemplate" %}
-{% endif %}
-
-{% if not(description) %}
-	{% set description = "Startup HTML template based on OptimizedHTML 5" %}
-{% endif %}
-
-{% set og_title = title %}
-{% set og_image = "images/preview.jpg" %}
-{% set og_description = description %}
-{% set og_url = "vk.com" %}
+---
+title:          HTMLTemplate
+description:    Startup HTML template based on OptimizedHTML 5
+og_title:       title
+og_image:       "images/preview.jpg"
+og_description: description
+og_url:         "vk.com"
+---
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -21,7 +17,7 @@
 			content="{{ description }}">
 		<meta name="viewport" content="width=device-width">
 		<link rel="icon" href="images/favicon.png">
-		{% include "blocks/_open-graph.njk" %}
+		{% include "_open-graph.njk" %}
 		<link rel="stylesheet" href="css/app.min.css">
 	</head>
 
@@ -32,7 +28,7 @@
 			<h1>Startup HTML template</h1>
 			<p>
 				Startup HTML5 template, based on
-				<a href="https://github.com/agragregra/OptimizedHTML-5">OptimizedHTML5</a>.
+				<a href="https://github.com/agragregra/OptimizedHTML-5"> OptimizedHTML5</a>.
 			</p>
 		{% endblock %}
 
