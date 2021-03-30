@@ -21,8 +21,9 @@ module.exports = function (eleventyConfig) {
    //HTML formatter
    eleventyConfig.addTransform("htmlmin", (content, outputPath) => {
       if (outputPath.endsWith(".html")) {
+
          const minified = htmlmin.minify(content, {
-            preserveLineBreaks: true,
+            preserveLineBreaks: htmlBeautify,
             collapseWhitespace: true,
             conservativeCollapse: true
          });
