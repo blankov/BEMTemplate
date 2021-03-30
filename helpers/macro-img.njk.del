@@ -1,0 +1,109 @@
+
+{# {{ picture(
+      source={
+         '(min-width: 1200px)': 'img/logo-dest',
+         '(min-width: 768px)': 'img/logo-tab'
+      }, 
+      img=[
+      'page-header__logo-image', 'img/logo-mob', 'Barbershop-Borodinski', '226', '85'
+      ], 
+      retina=['3x', '2x', '1x'], 
+      formats=['.webp', '.png'],
+      class='page-header__logo-picture')
+   }} #}
+
+{% macro picture(source, img, retina, formats, class) %}
+
+   <picture class="{{ class }}">
+      {# //MACRO for SRCSET #}
+      {% macro srcsetMaker(name, retina, format, img = false) %}
+
+         {% for x in retina %}
+
+            {# //COMA for SRCSET #}
+            {% if loop.last == true %}
+               {% set coma = '' %}
+            {% else %}
+               {% set coma = ',' %}
+            {% endif %}
+
+            {# //RETINA EMPTY #}
+            {% if x == '' %}
+               {% set at = '' %}
+            {% else %}
+               {% set at = '@' %}
+            {% endif %}
+
+            {# //SRCSET for <source> and <img> #}
+            {% if img == false %}
+               {% set srcset = [name + format + at + x + ' ' + x + coma] %}
+            {% elif img == true and loop.index < retina.length - 1 %} {# 1<3:1,2 #}
+               {% set srcset = [name + format + at + x + ' ' + x + coma] %}
+            {% elif img == true and loop.index == retina.length - 1 %} {# 3=3#}
+               {% set srcset = [name + format + at + x + ' ' + x] %}
+            {% elif img == true and loop.index == retina.length %} {# 4=4 #}
+               {% set srcset = '' %}
+            {% elif img == true and loop.index > retina.length %} {# 1>0 #}
+                  {% set srcset = [name + format + at + x + ' ' + x] %} 
+            {% else %}
+            {% endif %}
+            
+            {{ srcset }}
+
+         {% endfor %}
+
+      {% endmacro %}
+
+      {# //MACRO for type    #}
+      {% macro type(format) %}
+            {% if format == '.webp' %}
+               {% set type = 'type=image/webp' %}
+               {{ type }}
+            {% endif %}
+      {% endmacro %}
+
+
+      {# //SOURCE #}
+      {% for media, name in source %}
+         
+         {% for format in formats %}
+
+            <source media="{{ media }}" {{ type(format) }} srcset="{{ srcsetMaker(name, retina, format) }}">
+            
+         {% endfor %}
+
+      {% endfor %}
+
+
+      {# //IMG all #}
+      {% set class  = img[0] %}
+      {% set name   = img[1] %}
+      {% set format = formats | last %}
+      {% set alt    = img[2] %}
+      {% set w      = img[3] %}
+      {% set h      = img[4] %}
+
+      {# //IMG SRCSET #}
+      {% for format in formats %}
+
+      {% if format == '.webp' %}
+
+         <source {{ type(format) }} srcset="{{ srcsetMaker(name, retina, format) }}">
+
+      {% endif %}          
+            
+      {% endfor %}
+
+      {# //IMG #}
+      <img class="{{ class }}" src="{{ name + format }}"
+
+      {% if retina.length > 1 %}
+         srcset="{{ srcsetMaker(name, retina, format, img=true) }}" 
+      {% endif %}
+
+      alt="{{ alt }}" width="{{ w }}" height="{{ h }}">
+
+
+   </picture>
+
+{% endmacro %}
